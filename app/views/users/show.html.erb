@@ -1,0 +1,24 @@
+<div id="page-content">
+        <h1 class="text-center mt-4"><%= @user.username %>'s profile</h1>
+        <p class="text-center"><%= gravatar_for @user %></P>
+        
+        <% if logged_in? && (@user == current_user || current_user.admin?) %>
+            <div class="text-center mt-4">
+                <%= link_to "Edit your profile", edit_user_path(@user), class: "btn btn-outline-info" %>
+            </div>
+        <% end %>
+        <h3 class="text-center mt-4"> Created Books</h3>
+
+        <div class="flickr_pagination">
+            <%= will_paginate @books, :container => false %>
+        </div>
+        <%= render 'books/book' %>
+
+        <div class="flickr_pagination mb-4">
+            <%= will_paginate @books, :container => false %>
+        </div>
+
+        <div class="mb-3 text-center">
+            <%= link_to "[ Cancel and Return Back to User Listing Page ]" , users_path, class: "text-info" %>
+        </div>
+</div>

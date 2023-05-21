@@ -1,0 +1,44 @@
+<div id="page-content">
+    <div class="row justify-content-end mr-1">
+        <a class="btn btn-outline-primary",data-toggle="tooltip" data-placement="left" title="Click on List View", href="users">Tail View</a>
+    </div>
+
+<h1 class="text-center mt-3">Listing of Users</h1>
+    <div class="flickr_pagination">
+            <%= will_paginate @users, :container => false %>
+    </div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mt-4">
+             <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Created Books Count</th>
+                            <th style="text-align: center">Actions</th>
+                        </tr>
+                    </thead>
+                        <tbody>
+                            <% @users.each do |user| %>
+                                <tr>
+                                    <td><%= user.username %></a></td>
+                                    <td><%= user.email %></td>
+                                    <td><%= pluralize(user.books.count, "book") %></td>           
+                                    <td style="text-align: center">
+                                    <% if logged_in? and (user == current_user|| current_user.admin?) %>
+                                        <%= link_to "View profile", user, class: "btn btn-outline-success" %>
+                                        <%= link_to "Edit profile", edit_user_path(user), class: "btn btn-outline-info" %></td> 
+                                    <% end %>
+                                </tr>
+                            <% end %>
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>  
+    <div class="flickr_pagination mb-4">
+            <%= will_paginate @users, :container => false %>
+    </div>
+</div>   
